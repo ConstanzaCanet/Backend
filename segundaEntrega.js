@@ -21,16 +21,8 @@ class Objeto{
         this.id = id;
     }
 };
-/*Determino objeto */
-const objetico = new Objeto("objetico", 'vaCyDMtQ0W')
-const objetico1= new Objeto("objetico1", 'r8gl9ZxivH');
 
-const Envio=[
-    objetico, 
-    objetico1
-]
-/*nombre del archivo*/
-const Archivo= "objectSaved.txt"
+
 
 /*Funcion que guarde objeto en archivo---> Esto reescribe el archivo */
 const save=(archivo, data)=>{
@@ -43,9 +35,12 @@ const save=(archivo, data)=>{
 } 
 /*Seleccionar o buscar por id */
 
-const getById=()=>{
+const getById=(id, archivo)=>{
     const array= JSON.parse(getAll(archivo));
-}
+
+    const elementoX = array.filter(element => element.id === id);
+    console.log(elementoX);
+};
 
 /*Elimina el objeto que busco por id*/
 const deleteById=(id, archivo)=>{
@@ -108,6 +103,21 @@ const deletFile=(ruta)=>{
 /*--------------------------------------------------------------------------------------------------*/
 /*Probando, probando, 1 - 2 - 3 */
 
+/*Determino objeto */
+const objetico = new Objeto("objetico", 'vaCyDMtQ0W')
+const objetico1= new Objeto("objetico1", 'r8gl9ZxivH');
+
+const Envio=[
+    objetico, 
+    objetico1
+]
+/*nombre del archivo*/
+const Archivo= "objectSaved.txt"
+
+
+
+
+
 save(Archivo, JSON.stringify(Envio));
 
 console.log(getAll("./objectSaved.txt"));
@@ -118,4 +128,5 @@ console.log(getAll("./objectSaved.txt"));
 
 /*deletFile("./objectSaved.txt")*/
 
+getById('r8gl9ZxivH',Archivo)
 
