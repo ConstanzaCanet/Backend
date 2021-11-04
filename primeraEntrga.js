@@ -11,7 +11,7 @@ class Usuario{
         this.apellido = apellido;
         this.libros = libros;
         this.mascotas = mascotas;
-    }
+    };
     
     /*Funcion que muestre nombre */
     getName(){
