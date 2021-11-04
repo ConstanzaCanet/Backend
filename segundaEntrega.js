@@ -20,7 +20,10 @@ class Contenedor{
 
         /*Funcion que guarde objeto en archivo---> Esto reescribe el archivo */
         save(name){
-            let data =[{nombre:name , id:makeRandomId(10) }];
+            let data =[
+                {nombre:name,
+                id:makeRandomId(10) }
+            ];
 
             try{
                 fs.writeFileSync(this.nombreArchivo, JSON.stringify(data))
@@ -33,10 +36,14 @@ class Contenedor{
         
         getById(id){
             const array= JSON.parse(this.getAll());
-        
             const elementoX = array.filter(element => element.id === id);
-            console.log(elementoX);
+            if (elementoX.length != 0) {
+                console.log(`Producto: ${elementoX[0].nombre}, con id: ${elementoX[0].id}`); 
+            }else{
+                return console.log('Eso no lo tenemos')
+            }
         };
+        
         
         /*Elimina el objeto que busco por id*/
         deleteById(id){
@@ -70,11 +77,15 @@ class Contenedor{
         /*Creo una funcion que agregue objeto */
         addObject(nuevo){
             let nuevoP = {nombre: nuevo, id: makeRandomId(10)}
-            const objeticosAntes = JSON.parse(this.getAll())
-            const objeticosNuevos=[...objeticosAntes, nuevoP];
             try{
-                fs.writeFileSync(this.nombreArchivo, JSON.stringify(objeticosNuevos))
-                return console.log('Exelente, agregado');
+                const objeticosAntes = JSON.parse(this.getAll())
+                if (objeticosAntes.some(element => element.nombre === nuevoP.nombre)) {
+                    return {satatus:'error', message: "No, no, ese producto ya esta!"}
+                }else{
+                    const objeticosNuevos=[...objeticosAntes, nuevoP];
+                    fs.writeFileSync(this.nombreArchivo, JSON.stringify(objeticosNuevos))
+                    return 'Exelente, agregado';
+                }
             }catch(error){
                 throw new Error('No se Rick, parece falso... algo salio mal!')
             }
@@ -110,25 +121,28 @@ class Contenedor{
 /*Creo un objeto que tenga el tipo y el nombre del archivo*/
 const contenedorP = new Contenedor("objectSaved.txt");
 
-/*Aplico metodos para ir manipulando*/
+/*Aplico metodos para ir manipulando
+*/
 contenedorP.save('pepitos');
-contenedorP.addObject('merengadas');
+console.log(contenedorP.addObject('pepitos'));
+console.log(contenedorP.addObject('merengadas'));
 contenedorP.addObject('galletas_miel');
 contenedorP.addObject('sanguches');
+console.log(contenedorP.addObject('pan'));
+console.log(contenedorP.addObject('facturitas'));
 
 console.log(contenedorP.getAll("./objectSaved.txt"));
 
 
 
 
-/*
-contenedorP.getById("coloque_id_aqui");
-*/
 
 /*
-contenedorP.deleteAll("./objectSaved.txt");*/
+contenedorP.getById("coloque_id");
 
-/*contenedorP.deletFile("./objectSaved.txt")*/
+contenedorP.deleteAll("./objectSaved.txt");
+
+contenedorP.deletFile("./objectSaved.txt")*/
 
 
 
