@@ -2,9 +2,17 @@
 //let arrayE = [1, 2, 3, 4,5, 6];
 //arrayE.map(x => x*x).forEach(x => console.log(x))
 
-let Fechas = require("./fechas.js");
+
+
 let moment = require('moment');
-let birthday = moment("03/01/1996", "DD/MM/YYYY")
+
+let Fechas = require("./fechas");
+let birthday = moment("13/02/1991", "DD/MM/YYYY");
+
+let fecha = new Fechas(birthday);
+
+
+
 
 
 /*
@@ -28,33 +36,41 @@ const products = [
 let res = products.reduce(( prev, obj, i )=>{
     if (i == 0) {
         return {
-            total: obj.nombre,
-            precio: obj.precio,
+            nombre: obj.nombre,
+            total: obj.precio,
             minor: obj,
             mayor: obj,
-            promedio
         };
     }else{
         let minor = prev.minor.precio < obj.precio ? prev.minor : obj;
         let mayor = prev.mayor.precio < obj.precio ? prev.mayor : obj;
         return {
-            total: prev.nombre + ', ' +obj.nombre,
-            precio: parseFloat((prev.precio + obj.precio).toFixed(2)),
+            nombre: prev.nombre + ', ' +obj.nombre,
+            total: parseFloat((prev.total + obj.precio).toFixed(2)),
             minor,
             mayor
         }
         
     }
 }
-})
-, {});
-res.promedio = ( res.promedio.total / products.length)
 
-console.log('Respondo ', res)
+, {});
+
+res.promedio = parseFloat( (res.total / products.length).toFixed(2))
+
+console.log('Respondo ', res);
 */
 
-console.log( " Mi getToday", fecha.getToday())
-console.log( " Mi getBirth", fecha.getBirth())
+
+
+
+
+
+
+
+
+console.log( " Mi getToDay", fecha.getToDay())
+console.log( " Mi getMyBirth", fecha.getMyBirth())
 console.log( " Mi diffYears", fecha.diffYears())
 console.log( " Mi diffDays", fecha.diffDays())
-console.log( " Mi getDifference months", fecha.getDifference())
+console.log( " Mi getDifference months", fecha.getDifference('months'));

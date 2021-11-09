@@ -1,10 +1,13 @@
+let moment = require('moment');
+
+
 class Fechas{
     constructor(cumple){
         this.cumple = cumple;
-        this.today=moment();
+        this.today = moment();
     }
-    getDay(){
-        return this.today.format("L")
+    getToDay(){
+        return this.today.format("L");
     }
     getMyBirth(){
         return this.cumple;
@@ -15,5 +18,9 @@ class Fechas{
     diffDays(){
         return this.today.diff(this.cumple, 'days', true)
     }
-    detDifference(time)
-}
+    getDifference(time){
+        return this.today.diff(this.cumple, time ,true)
+    }
+};
+
+module.exports = Fechas;
